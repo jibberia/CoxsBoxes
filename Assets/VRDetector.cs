@@ -14,15 +14,21 @@ public class VRDetector : MonoBehaviour {
 	void Start () {
 		try {
 			Valve.VR.OpenVR.GetInitToken();
+			DisableNonVR();
 		} catch (DllNotFoundException e) {
-			print("Disabling VR");
 			DisableVR();
 		}
 	}
 
 	void DisableVR() {
+		print("Disabling VR");
 		var vrCam = GameObject.Find("Camera (head)");
 		vrCam.SetActive(false);
+	}
 
+	void DisableNonVR() {
+		print("Disabling Non-VR camera etc.");
+//		this.gameObject.SetActive(false);
+		GetComponent<AudioListener>().enabled = false;
 	}
 }
